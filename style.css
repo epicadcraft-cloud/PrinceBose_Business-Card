@@ -156,9 +156,14 @@ body {
   text-shadow: 0 4px 18px rgba(0, 0, 0, 0.4);
 }
 
-.person-name .first-name,
+.person-name .first-name {
+    display: inline;
+    margin-right: 8px;
+}
+
 .person-name .last-name {
-  display: block;
+    display: inline;
+    white-space: nowrap;
 }
 
 .person-role {
