@@ -1,0 +1,344 @@
+:root {
+  --font-stack: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
+  --text-white: #ffffff;
+  --text-sub: rgba(255, 255, 255, 0.9);
+  --pill-bg: rgba(255, 255, 255, 0.12);
+  --pill-border: rgba(255, 255, 255, 0.22);
+  --pill-specular: rgba(255, 255, 255, 0.35);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  font-family: var(--font-stack);
+  background-color: #05020c;
+  color: var(--text-white);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  min-height: 100dvh;
+  padding: 16px;
+  position: relative;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Ambient Backing for Desktop View */
+.ambient-backdrop {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.glow-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(140px);
+  opacity: 0.45;
+}
+
+.orb-purple {
+  width: 550px;
+  height: 550px;
+  background: #7e22ce;
+  top: 10%;
+  left: 20%;
+}
+
+.orb-dark {
+  width: 500px;
+  height: 500px;
+  background: #1e1b4b;
+  bottom: 10%;
+  right: 20%;
+}
+
+/* Strict 9:16 Aspect Ratio Digital Card Container */
+.card-916-canvas {
+  /* Strict 9:16 proportion formula */
+  aspect-ratio: 9 / 16;
+  height: min(94vh, 820px);
+  width: auto;
+  max-width: calc(min(94vh, 820px) * 9 / 16);
+  position: relative;
+  z-index: 1;
+  border-radius: 40px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  margin: auto;
+  
+  /* Rich, seamless velvet purple-to-midnight aurora */
+  background: 
+    radial-gradient(ellipse at 8% 52%, rgba(168, 85, 247, 0.72) 0%, rgba(126, 34, 206, 0.45) 32%, transparent 68%),
+    radial-gradient(ellipse at 94% 48%, rgba(30, 27, 75, 0.65) 0%, transparent 60%),
+    linear-gradient(160deg, #1b0a2d 0%, #2a0b49 32%, #15092d 65%, #070312 100%);
+  
+  box-shadow: 
+    0 32px 85px -15px rgba(0, 0, 0, 0.9),
+    0 0 0 1px rgba(255, 255, 255, 0.12) inset;
+}
+
+/* Seamless Portrait Layer (No square box, pure gradient melt in 9:16 frame) */
+.portrait-blend-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 56%;
+  overflow: hidden;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.portrait-blend-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 8%;
+  filter: contrast(1.06) brightness(1.02);
+  display: block;
+  
+  /* Feathered mask dissolving into transparency */
+  -webkit-mask-image: linear-gradient(to bottom, 
+    rgba(0, 0, 0, 1) 0%, 
+    rgba(0, 0, 0, 1) 32%, 
+    rgba(0, 0, 0, 0.85) 52%, 
+    rgba(0, 0, 0, 0.45) 72%, 
+    rgba(0, 0, 0, 0.12) 88%, 
+    rgba(0, 0, 0, 0) 100%
+  );
+  mask-image: linear-gradient(to bottom, 
+    rgba(0, 0, 0, 1) 0%, 
+    rgba(0, 0, 0, 1) 32%, 
+    rgba(0, 0, 0, 0.85) 52%, 
+    rgba(0, 0, 0, 0.45) 72%, 
+    rgba(0, 0, 0, 0.12) 88%, 
+    rgba(0, 0, 0, 0) 100%
+  );
+}
+
+/* Content Flow Layer (Direct match to reference) */
+.content-flow-layer {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  padding: 0 24px clamp(18px, 3vh, 28px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+/* Typography Hierarchy with Harmonious Clamping */
+.person-name {
+  font-size: clamp(26px, 4.2vh, 33px);
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  line-height: 1.12;
+  color: #ffffff;
+  margin-bottom: 5px;
+  text-shadow: 0 4px 18px rgba(0, 0, 0, 0.4);
+}
+
+.person-name .first-name,
+.person-name .last-name {
+  display: block;
+}
+
+.person-role {
+  font-size: clamp(12.5px, 1.8vh, 14.5px);
+  font-weight: 500;
+  color: var(--text-sub);
+  letter-spacing: -0.01em;
+  margin-bottom: clamp(14px, 2.5vh, 22px);
+}
+
+/* Frosted Feature Agency Pill */
+.agency-feature-pill {
+  width: 100%;
+  max-width: 345px;
+  padding: clamp(10px, 1.6vh, 13px) clamp(14px, 2.5vw, 20px);
+  background: var(--pill-bg);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid var(--pill-border);
+  border-radius: 9999px;
+  text-decoration: none;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  box-shadow: 
+    0 10px 28px -5px rgba(0, 0, 0, 0.35),
+    inset 0 1px 1px var(--pill-specular);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  margin-bottom: clamp(14px, 2.5vh, 22px);
+}
+
+.agency-feature-pill:hover {
+  background: rgba(255, 255, 255, 0.18);
+  border-color: rgba(255, 255, 255, 0.35);
+  transform: translateY(-2px);
+  box-shadow: 
+    0 14px 34px -5px rgba(168, 85, 247, 0.35),
+    inset 0 1px 1px rgba(255, 255, 255, 0.4);
+}
+
+.agency-text {
+  font-size: clamp(11.5px, 1.6vh, 13px);
+  font-weight: 500;
+  line-height: 1.35;
+  color: #ffffff;
+  text-align: center;
+  flex: 1;
+  letter-spacing: -0.01em;
+}
+
+.agency-dots {
+  color: rgba(255, 255, 255, 0.65);
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+/* Social Channels Row (Phone, WhatsApp, Instagram, LinkedIn) */
+.social-channels {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(16px, 3.2vw, 24px);
+  margin-bottom: clamp(14px, 2.5vh, 22px);
+}
+
+.social-icon-anchor {
+  width: clamp(38px, 5.2vh, 44px);
+  height: clamp(38px, 5.2vh, 44px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  text-decoration: none;
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.social-svg {
+  width: clamp(23px, 3.4vh, 27px);
+  height: clamp(23px, 3.4vh, 27px);
+  transition: transform 0.2s, filter 0.2s;
+}
+
+.social-icon-anchor:hover .social-svg {
+  transform: translateY(-2px) scale(1.1);
+  filter: drop-shadow(0 4px 14px rgba(255, 255, 255, 0.5));
+}
+
+.social-icon-anchor:active .social-svg {
+  transform: translateY(0) scale(0.96);
+}
+
+/* Clean Text-Only Save Contact Pill (NO ICON - Pure Typography) */
+.bottom-action-tray {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: clamp(8px, 1.4vh, 14px);
+}
+
+.clean-text-pill {
+  display: inline-block;
+  padding: clamp(10px, 1.5vh, 13px) clamp(28px, 5vw, 38px);
+  background: #ffffff;
+  color: #000000;
+  border: none;
+  border-radius: 9999px;
+  font-family: inherit;
+  font-size: clamp(12.5px, 1.7vh, 14px);
+  font-weight: 700;
+  cursor: pointer;
+  letter-spacing: -0.01em;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.clean-text-pill:hover {
+  background: #f4f4f5;
+  transform: translateY(-2px);
+  box-shadow: 0 14px 30px rgba(255, 255, 255, 0.25);
+}
+
+.clean-text-pill:active {
+  transform: translateY(0) scale(0.97);
+}
+
+/* Subtle Footer Note */
+.subtle-legal-footer {
+  font-size: 11px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.45);
+  letter-spacing: 0.02em;
+}
+
+/* Ambient Toast Notification */
+.ambient-toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(40px);
+  background: rgba(20, 10, 36, 0.94);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  color: #ffffff;
+  padding: 9px 18px;
+  border-radius: 9999px;
+  font-size: 12.5px;
+  font-weight: 500;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 100;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+}
+
+.ambient-toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* Strict 9:16 Ratio Enforcement on Mobile Devices */
+@media (max-width: 500px) {
+  body {
+    padding: 0;
+    background: #05020c;
+  }
+
+  .card-916-canvas {
+    /* Perfectly maintain true 9:16 aspect ratio on mobile screens */
+    height: 100dvh;
+    width: min(100vw, calc(100dvh * 9 / 16));
+    aspect-ratio: 9 / 16;
+    border-radius: 0;
+    border: none;
+    box-shadow: none;
+  }
+
+  .ambient-backdrop {
+    display: none;
+  }
+}
